@@ -43,6 +43,8 @@
 			drawBall();
 
 			if(y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
+				// This statement sets the color to a 
+				// randomly generated hexidecimal
 				ctx.fillStyle = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
 				dy = -dy;
 			}
