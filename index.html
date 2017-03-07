@@ -46,11 +46,11 @@
 		}
 
 		function drawPaddle() {
-		  ctx.beginPath();
-		  ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+			ctx.beginPath();
+			ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
 			ctx.fillStyle = "#0095DD";
-      ctx.fill();
-      ctx.closePath;
+			ctx.fill();
+			ctx.closePath;
 		}
 
 		function draw() {
@@ -61,7 +61,7 @@
 			if(x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
 				dx = -dx;
 			}
-      drawPaddle();
+			drawPaddle();
 			drawBall();
 			x += dx;
 			y += dy;
@@ -69,6 +69,23 @@
 
 		document.addEventListener("keydown", keyDownHandler)
 		document.addEventListener("keyup", keyUpHandler)
+		
+		function keyDownHandler(e) {
+			if(e.keyCode == 39) {
+				rightPressed = true;
+			}
+			else if(e.keyCode == 37) {
+				leftPressed == true;
+			}
+		}
+		function keyUpHandler(e) {
+			if(e.keyCode == 39) {
+				rightPressed = false;
+			}
+			else if(e.keyCode == 37) {
+				leftPressed == false;
+			}
+		}
 
 		setInterval(draw, 10);
 	</script>
