@@ -20,7 +20,6 @@
 	<canvas id="myCanvas" width="480" height="320"></canvas>
 
 	<script type="text/javascript">
-		
 		var canvas = document.getElementById("myCanvas");
 		var ctx = canvas.getContext("2d");
 
@@ -31,6 +30,13 @@
 
 		var ballRadius = 10;
 
+		var paddleHeight = 10;
+		var paddleWidth = 75;
+		var paddleX = (canvas.width-paddleWidth)/2;
+
+		var rightPressed = false;
+		var leftPressed = false;
+
 		function drawBall() {
 			ctx.beginPath();
 			ctx.arc(x, y, ballRadius, 0, Math.PI*2);
@@ -38,28 +44,51 @@
 			ctx.closePath();
 		}
 
+		function drawPaddle() {
+			ctx.beginPath();
+			ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+			ctx.fillStyle = "#0095DD";
+			ctx.fill();
+			ctx.closePath;
+		}
+
 		function draw() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			drawBall();
-
 			if(y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
 				// This statement sets the color to a 
 				// randomly generated hexidecimal
-				ctx.fillStyle = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
 				dy = -dy;
 			}
-
 			if(x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-				ctx.fillStyle = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
 				dx = -dx;
 			}
-
+			drawPaddle();
+			drawBall();
 			x += dx;
 			y += dy;
 		}
 
-		setInterval(draw, 10)
+		document.addEventListener("keydown", keyDownHandler)
+		document.addEventListener("keyup", keyUpHandler)
+		
+		function keyDownHandler(e) {
+			if(e.keyCode == 39) {
+				rightPressed = true;
+			}
+			else if(e.keyCode == 37) {
+				leftPressed == true;
+			}
+		}
+		function keyUpHandler(e) {
+			if(e.keyCode == 39) {
+				rightPressed = false;
+			}
+			else if(e.keyCode == 37) {
+				leftPressed == false;
+			}
+		}
 
+		setInterval(draw, 10);
 	</script>
 </body>
 </html>
